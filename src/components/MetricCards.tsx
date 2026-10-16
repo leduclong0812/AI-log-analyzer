@@ -80,16 +80,16 @@ export const MetricCards: React.FC<MetricCardsProps> = ({ summary }) => {
         return (
           <div
             key={i}
-            className={`rounded-xl border ${c.borderColor} bg-slate-900/60 p-4 transition-all duration-200 hover:border-slate-700`}
+            className={`rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4 transition-all duration-200 hover:border-slate-300 dark:hover:border-slate-700 shadow-xs dark:shadow-none`}
           >
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[11px] font-medium text-slate-400 truncate">{c.title}</span>
+              <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400 truncate">{c.title}</span>
               <div className={`p-1.5 rounded-lg ${c.bgColor} ${c.color}`}>
                 <Icon className="w-3.5 h-3.5" />
               </div>
             </div>
-            <div className="text-xl font-bold text-white tracking-tight">{c.value}</div>
-            <div className="text-[11px] text-slate-400 mt-1 truncate">{c.subtext}</div>
+            <div className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">{c.value}</div>
+            <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 truncate">{c.subtext}</div>
           </div>
         );
       })}

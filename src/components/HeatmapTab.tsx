@@ -17,11 +17,11 @@ export const HeatmapTab: React.FC<HeatmapTabProps> = ({ heatmap, summary }) => {
   const maxCount = Math.max(...heatmap.map(h => h.count), 1);
 
   const getCellColor = (count: number) => {
-    if (count === 0) return 'bg-slate-900/80 border-slate-800/60 hover:border-slate-600';
+    if (count === 0) return 'bg-slate-100 dark:bg-slate-900/80 border-slate-200 dark:border-slate-800/60 hover:border-slate-400 dark:hover:border-slate-600';
     const ratio = count / maxCount;
-    if (ratio < 0.15) return 'bg-cyan-950/60 border-cyan-900/60 text-cyan-400 hover:border-cyan-500';
-    if (ratio < 0.4) return 'bg-cyan-800/80 border-cyan-700/80 text-white hover:border-cyan-400';
-    if (ratio < 0.75) return 'bg-cyan-600 border-cyan-500 text-white hover:border-cyan-300';
+    if (ratio < 0.15) return 'bg-cyan-100 dark:bg-cyan-950/60 border-cyan-200 dark:border-cyan-900/60 text-cyan-800 dark:text-cyan-400 hover:border-cyan-500';
+    if (ratio < 0.4) return 'bg-cyan-300 dark:bg-cyan-800/80 border-cyan-400 dark:border-cyan-700/80 text-cyan-950 dark:text-white hover:border-cyan-400';
+    if (ratio < 0.75) return 'bg-cyan-500 dark:bg-cyan-600 border-cyan-600 dark:border-cyan-500 text-white hover:border-cyan-300';
     return 'bg-emerald-500 border-emerald-400 text-slate-950 font-bold hover:border-white shadow-sm shadow-emerald-500/20';
   };
 
@@ -50,22 +50,22 @@ export const HeatmapTab: React.FC<HeatmapTabProps> = ({ heatmap, summary }) => {
   return (
     <div className="space-y-6">
       {/* Intro & Insights */}
-      <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-5">
+      <div className="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-xs dark:shadow-none">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h3 className="text-sm font-semibold text-slate-200">AI Crawler 24x7 Activity Heatmap</h3>
-            <p className="text-xs text-slate-400">
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-200">AI Crawler 24x7 Activity Heatmap</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               Visual representation of crawl cadence by day of week and hour of day (UTC)
             </p>
           </div>
 
           <div className="flex items-center gap-2 text-xs">
-            <span className="text-slate-400 text-[11px]">Intensity:</span>
+            <span className="text-slate-500 dark:text-slate-400 text-[11px]">Intensity:</span>
             <div className="flex items-center gap-1 text-[10px]">
-              <span className="w-3.5 h-3.5 rounded bg-slate-900 border border-slate-800" title="0 hits"></span>
-              <span className="w-3.5 h-3.5 rounded bg-cyan-950/60 border border-cyan-900/60" title="Low"></span>
-              <span className="w-3.5 h-3.5 rounded bg-cyan-800/80 border border-cyan-700/80" title="Moderate"></span>
-              <span className="w-3.5 h-3.5 rounded bg-cyan-600 border border-cyan-500" title="High"></span>
+              <span className="w-3.5 h-3.5 rounded bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800" title="0 hits"></span>
+              <span className="w-3.5 h-3.5 rounded bg-cyan-100 dark:bg-cyan-950/60 border border-cyan-300 dark:border-cyan-900/60" title="Low"></span>
+              <span className="w-3.5 h-3.5 rounded bg-cyan-300 dark:bg-cyan-800/80 border border-cyan-400 dark:border-cyan-700/80" title="Moderate"></span>
+              <span className="w-3.5 h-3.5 rounded bg-cyan-500 dark:bg-cyan-600 border border-cyan-600 dark:border-cyan-500" title="High"></span>
               <span className="w-3.5 h-3.5 rounded bg-emerald-500 border border-emerald-400" title="Peak"></span>
             </div>
           </div>
@@ -130,27 +130,27 @@ export const HeatmapTab: React.FC<HeatmapTabProps> = ({ heatmap, summary }) => {
       {/* Crawl Gaps & Timing Analytics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Peak Window */}
-        <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-5">
-          <div className="flex items-center gap-2 text-cyan-400 text-xs font-semibold uppercase tracking-wider mb-2">
+        <div className="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-xs dark:shadow-none">
+          <div className="flex items-center gap-2 text-cyan-600 dark:text-cyan-400 text-xs font-semibold uppercase tracking-wider mb-2">
             <Zap className="w-4 h-4" /> Peak Crawl Velocity
           </div>
-          <div className="text-xl font-bold text-white mb-1">
+          <div className="text-xl font-bold text-slate-900 dark:text-white mb-1">
             {peakHour.toString().padStart(2, '0')}:00 - {(peakHour + 1).toString().padStart(2, '0')}:00 UTC
           </div>
-          <p className="text-xs text-slate-400 leading-relaxed">
+          <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
             AI search agents (Perplexity, ChatGPT Search, Applebot) concentrate highest index refresh activity during this window ({peakHourTotal.toLocaleString()} requests recorded). Ensure caching or CDN edge rules are optimized to prevent origin CPU spikes.
           </p>
         </div>
 
         {/* Crawl Gaps */}
-        <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-5">
-          <div className="flex items-center gap-2 text-amber-400 text-xs font-semibold uppercase tracking-wider mb-2">
+        <div className="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-xs dark:shadow-none">
+          <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400 text-xs font-semibold uppercase tracking-wider mb-2">
             <AlertCircle className="w-4 h-4" /> Crawl Gaps Analysis
           </div>
-          <div className="text-xl font-bold text-white mb-1">
+          <div className="text-xl font-bold text-slate-900 dark:text-white mb-1">
             {gapHours.length > 0 ? `${gapHours.length} Inactive Hours Detected` : 'Continuous 24h Crawl Coverage'}
           </div>
-          <p className="text-xs text-slate-400 leading-relaxed">
+          <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
             {gapHours.length > 0
               ? `Zero AI crawler activity was logged during hours: ${gapHours.slice(0, 6).map(h => `${h}:00`).join(', ')}. If your content updates during these hours, AI models experience latency before indexing new publications.`
               : 'AI discovery engines maintain balanced around-the-clock crawl presence without prolonged gaps.'}

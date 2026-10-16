@@ -43,33 +43,33 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({
   return (
     <div className="space-y-6">
       {/* Traffic Composition Bar */}
-      <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-5">
+      <div className="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-xs dark:shadow-none">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
           <div>
-            <h3 className="text-sm font-semibold text-slate-200">Traffic Distribution: AI Crawlers vs Other Traffic</h3>
-            <p className="text-xs text-slate-400">Proportion of server bandwidth and compute claimed by AI agents</p>
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-200">Traffic Distribution: AI Crawlers vs Other Traffic</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400">Proportion of server bandwidth and compute claimed by AI agents</p>
           </div>
           <div className="flex items-center gap-4 text-xs">
-            <span className="flex items-center gap-1.5 text-slate-300">
+            <span className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
               <span className="w-2.5 h-2.5 rounded-sm bg-cyan-500"></span>
               AI Crawlers ({summary.aiPercentage}%)
             </span>
-            <span className="flex items-center gap-1.5 text-slate-400">
-              <span className="w-2.5 h-2.5 rounded-sm bg-slate-700"></span>
+            <span className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
+              <span className="w-2.5 h-2.5 rounded-sm bg-slate-300 dark:bg-slate-700"></span>
               Other / Human ({(100 - summary.aiPercentage).toFixed(1)}%)
             </span>
           </div>
         </div>
 
         {/* Multi-segment bar */}
-        <div className="w-full h-3 rounded-full bg-slate-800 overflow-hidden flex">
+        <div className="w-full h-3 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden flex">
           <div
             className="bg-cyan-500 h-full transition-all duration-700"
             style={{ width: `${Math.max(summary.aiPercentage, 1)}%` }}
             title={`AI Traffic: ${summary.aiRequests} requests`}
           />
           <div
-            className="bg-slate-700 h-full transition-all duration-700"
+            className="bg-slate-400 dark:bg-slate-700 h-full transition-all duration-700"
             style={{ width: `${Math.max(100 - summary.aiPercentage, 0)}%` }}
             title={`Other Traffic: ${summary.nonAiRequests} requests`}
           />
@@ -79,15 +79,15 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({
       {/* Grid: Top Active AI Bots & HTTP Status Distribution */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Left: Top AI Crawlers */}
-        <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-5">
+        <div className="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-xs dark:shadow-none">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-sm font-semibold text-slate-200">Top Active AI Crawlers</h3>
-              <p className="text-xs text-slate-400">Bots generating the highest volume of index requests</p>
+              <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-200">Top Active AI Crawlers</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Bots generating the highest volume of index requests</p>
             </div>
             <button
               onClick={() => onSelectTab('crawlers')}
-              className="text-xs text-cyan-400 hover:text-cyan-300 flex items-center gap-1 font-medium"
+              className="text-xs text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 flex items-center gap-1 font-medium cursor-pointer"
             >
               View all {botStats.length} <ArrowUpRight className="w-3.5 h-3.5" />
             </button>
@@ -101,15 +101,15 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({
                 <div key={bot.botId} className="space-y-1">
                   <div className="flex items-center justify-between text-xs">
                     <div className="flex items-center gap-2">
-                      <span className="font-medium text-slate-200">{bot.name}</span>
-                      <span className="text-[11px] text-slate-400">({bot.vendor})</span>
+                      <span className="font-semibold text-slate-800 dark:text-slate-200">{bot.name}</span>
+                      <span className="text-[11px] text-slate-500 dark:text-slate-400">({bot.vendor})</span>
                     </div>
                     <div className="flex items-center gap-3">
-                      <span className="text-slate-400 text-[11px]">{bot.totalRequests.toLocaleString()} hits</span>
-                      <span className="font-semibold text-cyan-400">{bot.percentageOfAi}%</span>
+                      <span className="text-slate-500 dark:text-slate-400 text-[11px]">{bot.totalRequests.toLocaleString()} hits</span>
+                      <span className="font-bold text-cyan-600 dark:text-cyan-400">{bot.percentageOfAi}%</span>
                     </div>
                   </div>
-                  <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                  <div className="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden">
                     <div
                       className="bg-gradient-to-r from-cyan-500 to-blue-500 h-full rounded-full transition-all duration-500"
                       style={{ width: `${Math.min(bot.percentageOfAi, 100)}%` }}
@@ -122,15 +122,15 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({
         </div>
 
         {/* Right: HTTP Response Code Distribution */}
-        <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-5">
+        <div className="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-xs dark:shadow-none">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-sm font-semibold text-slate-200">HTTP Response Code Breakdown</h3>
-              <p className="text-xs text-slate-400">Health of responses served to all crawlers</p>
+              <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-200">HTTP Response Code Breakdown</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Health of responses served to all crawlers</p>
             </div>
             <button
               onClick={() => onSelectTab('issues')}
-              className="text-xs text-amber-400 hover:text-amber-300 flex items-center gap-1 font-medium"
+              className="text-xs text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 flex items-center gap-1 font-medium cursor-pointer"
             >
               Analyze Issues <ArrowUpRight className="w-3.5 h-3.5" />
             </button>
@@ -145,12 +145,12 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({
                 const statusStyle = getStatusColor(code);
 
                 return (
-                  <div key={codeStr} className="flex items-center justify-between text-xs p-2 rounded-lg bg-slate-950/40 border border-slate-800/60">
+                  <div key={codeStr} className="flex items-center justify-between text-xs p-2 rounded-lg bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800/60">
                     <div className="flex items-center gap-2.5">
                       <span className={`px-2 py-0.5 rounded text-[11px] font-mono font-bold border ${statusStyle}`}>
                         {code}
                       </span>
-                      <span className="text-slate-300">
+                      <span className="text-slate-700 dark:text-slate-300">
                         {code === 200 && 'OK (Success)'}
                         {code === 301 && 'Moved Permanently'}
                         {code === 304 && 'Not Modified (Cache Hit)'}
@@ -161,7 +161,7 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({
                       </span>
                     </div>
                     <div className="flex items-center gap-3">
-                      <span className="text-slate-400 font-mono">{count.toLocaleString()}</span>
+                      <span className="text-slate-500 dark:text-slate-400 font-mono">{count.toLocaleString()}</span>
                       <span className="text-slate-400 text-[11px] w-12 text-right">{percent}%</span>
                     </div>
                   </div>
@@ -174,67 +174,67 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({
       {/* Grid: AI Bot Classification & Top Crawled Directories */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Crawler Category Breakdown */}
-        <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-5">
-          <h3 className="text-sm font-semibold text-slate-200 mb-1">AI Crawler Role Classification</h3>
-          <p className="text-xs text-slate-400 mb-4">Breakdown by crawler intent and commercial purpose</p>
+        <div className="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-xs dark:shadow-none">
+          <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-200 mb-1">AI Crawler Role Classification</h3>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">Breakdown by crawler intent and commercial purpose</p>
 
           <div className="grid grid-cols-2 gap-3">
-            <div className="p-3 rounded-lg bg-slate-950/60 border border-slate-800">
-              <div className="flex items-center gap-1.5 text-xs text-cyan-400 font-medium mb-1">
+            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800">
+              <div className="flex items-center gap-1.5 text-xs text-cyan-600 dark:text-cyan-400 font-semibold mb-1">
                 <Search className="w-3.5 h-3.5" />
                 <span>Search Bots</span>
               </div>
-              <div className="text-lg font-bold text-white">
+              <div className="text-lg font-bold text-slate-900 dark:text-white">
                 {(summary.categoryBreakdown.search || 0).toLocaleString()}
               </div>
-              <p className="text-[11px] text-slate-400 mt-0.5">ChatGPT Search, Perplexity, Claude-Web</p>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">ChatGPT Search, Perplexity, Claude-Web</p>
             </div>
 
-            <div className="p-3 rounded-lg bg-slate-950/60 border border-slate-800">
-              <div className="flex items-center gap-1.5 text-xs text-indigo-400 font-medium mb-1">
+            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800">
+              <div className="flex items-center gap-1.5 text-xs text-indigo-600 dark:text-indigo-400 font-semibold mb-1">
                 <Brain className="w-3.5 h-3.5" />
                 <span>Training Scrapers</span>
               </div>
-              <div className="text-lg font-bold text-white">
+              <div className="text-lg font-bold text-slate-900 dark:text-white">
                 {(summary.categoryBreakdown.training || 0).toLocaleString()}
               </div>
-              <p className="text-[11px] text-slate-400 mt-0.5">GPTBot, Bytespider, CCBot, DeepSeek</p>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">GPTBot, Bytespider, CCBot, DeepSeek</p>
             </div>
 
-            <div className="p-3 rounded-lg bg-slate-950/60 border border-slate-800">
-              <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-medium mb-1">
+            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800">
+              <div className="flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400 font-semibold mb-1">
                 <Users className="w-3.5 h-3.5" />
                 <span>User-Prompted</span>
               </div>
-              <div className="text-lg font-bold text-white">
+              <div className="text-lg font-bold text-slate-900 dark:text-white">
                 {(summary.categoryBreakdown.user_action || 0).toLocaleString()}
               </div>
-              <p className="text-[11px] text-slate-400 mt-0.5">ChatGPT-User, Claude-User live clicks</p>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">ChatGPT-User, Claude-User live clicks</p>
             </div>
 
-            <div className="p-3 rounded-lg bg-slate-950/60 border border-slate-800">
-              <div className="flex items-center gap-1.5 text-xs text-amber-400 font-medium mb-1">
+            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800">
+              <div className="flex items-center gap-1.5 text-xs text-amber-600 dark:text-amber-400 font-semibold mb-1">
                 <BarChart3 className="w-3.5 h-3.5" />
                 <span>SEO & Aggregators</span>
               </div>
-              <div className="text-lg font-bold text-white">
+              <div className="text-lg font-bold text-slate-900 dark:text-white">
                 {((summary.categoryBreakdown.seo_crawler || 0) + (summary.categoryBreakdown.aggregator || 0)).toLocaleString()}
               </div>
-              <p className="text-[11px] text-slate-400 mt-0.5">Ahrefs, Semrush, DataForSEO, Diffbot</p>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Ahrefs, Semrush, DataForSEO, Diffbot</p>
             </div>
           </div>
         </div>
 
         {/* Top Crawled Site Sections */}
-        <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-5">
+        <div className="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-xs dark:shadow-none">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-sm font-semibold text-slate-200">Top Crawled Content Sections</h3>
-              <p className="text-xs text-slate-400">Path prefixes prioritized by AI discovery agents</p>
+              <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-200">Top Crawled Content Sections</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Path prefixes prioritized by AI discovery agents</p>
             </div>
             <button
               onClick={() => onSelectTab('urls')}
-              className="text-xs text-cyan-400 hover:text-cyan-300 flex items-center gap-1 font-medium"
+              className="text-xs text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 flex items-center gap-1 font-medium cursor-pointer"
             >
               Explore URLs <ArrowUpRight className="w-3.5 h-3.5" />
             </button>
@@ -245,13 +245,13 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({
               <div className="text-xs text-slate-400 py-6 text-center">No path data available.</div>
             ) : (
               topSections.map(([section, count]) => (
-                <div key={section} className="flex items-center justify-between p-2.5 rounded-lg bg-slate-950/50 border border-slate-800">
-                  <div className="font-mono text-xs text-slate-200 truncate font-medium">
+                <div key={section} className="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800">
+                  <div className="font-mono text-xs text-slate-800 dark:text-slate-200 truncate font-semibold">
                     {section}
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className="text-xs text-slate-400">{count.toLocaleString()} AI hits</span>
-                    <span className="text-[11px] font-semibold text-cyan-400 bg-cyan-950/60 border border-cyan-800/60 px-2 py-0.5 rounded">
+                    <span className="text-xs text-slate-500 dark:text-slate-400">{count.toLocaleString()} AI hits</span>
+                    <span className="text-[11px] font-semibold text-cyan-700 dark:text-cyan-400 bg-cyan-100 dark:bg-cyan-950/60 border border-cyan-300 dark:border-cyan-800/60 px-2 py-0.5 rounded">
                       {((count / Math.max(summary.aiRequests, 1)) * 100).toFixed(0)}%
                     </span>
                   </div>

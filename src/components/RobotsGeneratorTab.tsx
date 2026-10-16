@@ -9,7 +9,8 @@ export const RobotsGeneratorTab: React.FC = () => {
     switch (selectedStrategy) {
       case 'search_only':
         return `# ==============================================================================
-# GEO OPTIMIZED ROBOTS.TXT: AI SEARCH ONLY (RECOMMENDED BY AI LOG ANALYZER)
+# TEEJAY GEO OPTIMIZED ROBOTS.TXT: AI SEARCH ONLY (RECOMMENDED STRATEGY)
+# Generator: Teejay AI Log Analyzer (https://github.com/teejay)
 # Purpose: Permits AI Search Engines to index & cite your content in answer engines
 #          while blocking non-compensating foundation model training scrapers.
 # ==============================================================================
@@ -240,11 +241,11 @@ Allow: /`;
   return (
     <div className="space-y-6">
       {/* Strategy selector */}
-      <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-5">
-        <h3 className="text-sm font-semibold text-slate-200 mb-1">
+      <div className="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-xs dark:shadow-none">
+        <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-200 mb-1">
           Select Your AI Crawl Policy Strategy
         </h3>
-        <p className="text-xs text-slate-400 mb-4">
+        <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">
           Choose how you want modern Generative AI search engines, training scrapers, and answer bots to treat your site.
         </p>
 
@@ -252,17 +253,17 @@ Allow: /`;
           <button
             type="button"
             onClick={() => setStrategy('search_only')}
-            className={`p-3.5 rounded-xl border text-left transition-all ${
+            className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer ${
               strategy === 'search_only'
-                ? 'bg-cyan-950/60 border-cyan-500 shadow-sm'
-                : 'bg-slate-950/60 border-slate-800 hover:border-slate-700'
+                ? 'bg-cyan-50 dark:bg-cyan-950/60 border-cyan-500 shadow-sm'
+                : 'bg-slate-50 dark:bg-slate-950/60 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
             }`}
           >
-            <div className="flex items-center gap-1.5 text-xs font-bold text-cyan-400 mb-1">
+            <div className="flex items-center gap-1.5 text-xs font-bold text-cyan-700 dark:text-cyan-400 mb-1">
               <ShieldCheck className="w-4 h-4" /> Recommended GEO
             </div>
-            <div className="text-sm font-bold text-white">AI Search Only</div>
-            <p className="text-[11px] text-slate-400 mt-1 leading-normal">
+            <div className="text-sm font-bold text-slate-900 dark:text-white">AI Search Only</div>
+            <p className="text-[11px] text-slate-600 dark:text-slate-400 mt-1 leading-normal">
               Permits ChatGPT Search, Perplexity, Claude-Web citations while blocking training bots.
             </p>
           </button>
@@ -270,17 +271,17 @@ Allow: /`;
           <button
             type="button"
             onClick={() => setStrategy('allow_all')}
-            className={`p-3.5 rounded-xl border text-left transition-all ${
+            className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer ${
               strategy === 'allow_all'
-                ? 'bg-emerald-950/60 border-emerald-500 shadow-sm'
-                : 'bg-slate-950/60 border-slate-800 hover:border-slate-700'
+                ? 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-500 shadow-sm'
+                : 'bg-slate-50 dark:bg-slate-950/60 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
             }`}
           >
-            <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-400 mb-1">
+            <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-700 dark:text-emerald-400 mb-1">
               <Sparkles className="w-4 h-4" /> Full AI Open
             </div>
-            <div className="text-sm font-bold text-white">Maximum Discovery</div>
-            <p className="text-[11px] text-slate-400 mt-1 leading-normal">
+            <div className="text-sm font-bold text-slate-900 dark:text-white">Maximum Discovery</div>
+            <p className="text-[11px] text-slate-600 dark:text-slate-400 mt-1 leading-normal">
               Permits all AI crawlers, model training, and search indexing unconditionally.
             </p>
           </button>
@@ -288,17 +289,17 @@ Allow: /`;
           <button
             type="button"
             onClick={() => setStrategy('balanced')}
-            className={`p-3.5 rounded-xl border text-left transition-all ${
+            className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer ${
               strategy === 'balanced'
-                ? 'bg-indigo-950/60 border-indigo-500 shadow-sm'
-                : 'bg-slate-950/60 border-slate-800 hover:border-slate-700'
+                ? 'bg-indigo-50 dark:bg-indigo-950/60 border-indigo-500 shadow-sm'
+                : 'bg-slate-50 dark:bg-slate-950/60 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
             }`}
           >
-            <div className="flex items-center gap-1.5 text-xs font-bold text-indigo-400 mb-1">
+            <div className="flex items-center gap-1.5 text-xs font-bold text-indigo-700 dark:text-indigo-400 mb-1">
               <ShieldCheck className="w-4 h-4" /> Balanced Bandwidth
             </div>
-            <div className="text-sm font-bold text-white">Block Heavy Scrapers</div>
-            <p className="text-[11px] text-slate-400 mt-1 leading-normal">
+            <div className="text-sm font-bold text-slate-900 dark:text-white">Block Heavy Scrapers</div>
+            <p className="text-[11px] text-slate-600 dark:text-slate-400 mt-1 leading-normal">
               Allows top search engines while blocking aggressive bandwidth drains like Bytespider & CCBot.
             </p>
           </button>
@@ -306,17 +307,17 @@ Allow: /`;
           <button
             type="button"
             onClick={() => setStrategy('strict_block')}
-            className={`p-3.5 rounded-xl border text-left transition-all ${
+            className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer ${
               strategy === 'strict_block'
-                ? 'bg-rose-950/60 border-rose-500 shadow-sm'
-                : 'bg-slate-950/60 border-slate-800 hover:border-slate-700'
+                ? 'bg-rose-50 dark:bg-rose-950/60 border-rose-500 shadow-sm'
+                : 'bg-slate-50 dark:bg-slate-950/60 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
             }`}
           >
-            <div className="flex items-center gap-1.5 text-xs font-bold text-rose-400 mb-1">
+            <div className="flex items-center gap-1.5 text-xs font-bold text-rose-700 dark:text-rose-400 mb-1">
               <ShieldAlert className="w-4 h-4" /> Full AI Opt-Out
             </div>
-            <div className="text-sm font-bold text-white">Strict Disallow</div>
-            <p className="text-[11px] text-slate-400 mt-1 leading-normal">
+            <div className="text-sm font-bold text-slate-900 dark:text-white">Strict Disallow</div>
+            <p className="text-[11px] text-slate-600 dark:text-slate-400 mt-1 leading-normal">
               Blocks all known 116+ AI crawlers, bots, and agents from indexing your content.
             </p>
           </button>
@@ -324,25 +325,25 @@ Allow: /`;
       </div>
 
       {/* Code Editor Preview */}
-      <div className="bg-slate-900/60 border border-slate-800 rounded-xl overflow-hidden">
-        <div className="bg-slate-950/80 px-4 py-3 border-b border-slate-800 flex items-center justify-between">
+      <div className="bg-slate-900 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
+        <div className="bg-slate-800/80 dark:bg-slate-900/80 px-4 py-3 border-b border-slate-700 dark:border-slate-800 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="w-3 h-3 rounded-full bg-rose-500/80 inline-block"></span>
             <span className="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
             <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
-            <span className="text-xs font-mono text-slate-400 ml-2">robots.txt</span>
+            <span className="text-xs font-mono text-slate-300 dark:text-slate-400 ml-2">robots.txt</span>
           </div>
 
           <div className="flex items-center gap-2">
             <button
               type="button"
               onClick={handleCopy}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-slate-700 dark:bg-slate-800 hover:bg-slate-600 dark:hover:bg-slate-700 text-slate-100 rounded-lg transition-colors cursor-pointer"
             >
               {copied ? (
                 <>
                   <Check className="w-3.5 h-3.5 text-emerald-400" />
-                  <span className="text-emerald-400">Copied to Clipboard</span>
+                  <span className="text-emerald-400 font-semibold">Copied to Clipboard</span>
                 </>
               ) : (
                 <>
@@ -355,7 +356,7 @@ Allow: /`;
             <button
               type="button"
               onClick={handleDownload}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg transition-colors cursor-pointer shadow-xs"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Download File</span>
@@ -369,14 +370,14 @@ Allow: /`;
       </div>
 
       {/* Critical Guidance Card */}
-      <div className="bg-slate-900/40 border border-slate-800 rounded-xl p-4 text-xs text-slate-400 flex items-start gap-3">
-        <HelpCircle className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
+      <div className="bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 rounded-xl p-4 text-xs text-slate-600 dark:text-slate-400 flex items-start gap-3 shadow-xs dark:shadow-none">
+        <HelpCircle className="w-5 h-5 text-cyan-600 dark:text-cyan-400 flex-shrink-0 mt-0.5" />
         <div className="space-y-1">
-          <span className="font-semibold text-slate-200">
+          <span className="font-semibold text-slate-900 dark:text-slate-200">
             Crucial Distinction: OAI-SearchBot vs GPTBot
           </span>
           <p className="leading-relaxed">
-            Many site owners mistakenly block all of OpenAI with <code className="text-cyan-300">User-agent: GPTBot Disallow: /</code> without realizing that <code className="text-cyan-300">OAI-SearchBot</code> is a completely separate crawler used exclusively for ChatGPT Search and live link citations. Blocking GPTBot does NOT affect your ChatGPT Search visibility as long as OAI-SearchBot is explicitly allowed.
+            Many site owners mistakenly block all of OpenAI with <code className="text-cyan-700 dark:text-cyan-300 font-mono">User-agent: GPTBot Disallow: /</code> without realizing that <code className="text-cyan-700 dark:text-cyan-300 font-mono">OAI-SearchBot</code> is a completely separate crawler used exclusively for ChatGPT Search and live link citations. Blocking GPTBot does NOT affect your ChatGPT Search visibility as long as OAI-SearchBot is explicitly allowed.
           </p>
         </div>
       </div>

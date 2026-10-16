@@ -36,6 +36,32 @@ export default function App() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [notification, setNotification] = useState<string | null>(null);
 
+  // Theme State: 'dark' | 'light'
+  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('teejay_theme');
+      if (saved === 'light' || saved === 'dark') return saved;
+      return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    }
+    return 'dark';
+  });
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === 'dark') {
+      root.classList.add('dark');
+      root.classList.remove('light');
+    } else {
+      root.classList.add('light');
+      root.classList.remove('dark');
+    }
+    localStorage.setItem('teejay_theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
   // Initialize with sample logs on first mount
   useEffect(() => {
     loadLogs(SAMPLE_CLOUDFLARE_LOGS, 'Cloudflare Logpush (JSON)');
@@ -103,6 +129,8 @@ export default function App() {
   const handleExportJson = () => {
     if (!parseResult) return;
     const exportData = {
+      brand: 'Teejay AI Log Analyzer',
+      engine: 'Teejay GEO Score™ 2.0',
       exportDate: new Date().toISOString(),
       geoScore,
       summary: parseResult.summary,
@@ -114,10 +142,10 @@ export default function App() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `geo-audit-report-${new Date().toISOString().slice(0, 10)}.json`;
+    a.download = `teejay-geo-audit-report-${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     URL.revokeObjectURL(url);
-    showToast('Exported GEO audit JSON report');
+    showToast('Exported Teejay GEO audit JSON report');
   };
 
   const geoScore = parseResult
@@ -156,12 +184,14 @@ export default function App() {
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
-      className="min-h-screen bg-slate-950 text-slate-100 flex flex-col relative selection:bg-cyan-500/30 selection:text-cyan-200"
+      className={`min-h-screen ${
+        theme === 'dark' ? 'dark bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-800'
+      } flex flex-col relative transition-colors selection:bg-cyan-500/30 selection:text-cyan-700 dark:selection:text-cyan-200`}
     >
       {/* Toast Notification */}
       {notification && (
-        <div className="fixed bottom-5 right-5 z-50 bg-slate-900 border border-cyan-500/40 text-slate-200 px-4 py-2.5 rounded-xl shadow-2xl text-xs flex items-center gap-2 animate-in fade-in slide-in-from-bottom-2">
-          <CheckCircle className="w-4 h-4 text-cyan-400" />
+        <div className="fixed bottom-5 right-5 z-50 bg-white dark:bg-slate-900 border border-slate-300 dark:border-cyan-500/40 text-slate-800 dark:text-slate-200 px-4 py-2.5 rounded-xl shadow-2xl text-xs flex items-center gap-2 animate-in fade-in slide-in-from-bottom-2">
+          <CheckCircle className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
           <span>{notification}</span>
         </div>
       )}
@@ -181,6 +211,9 @@ export default function App() {
         onOpenPasteModal={() => setIsPasteModalOpen(true)}
         onFileUpload={handleFileUpload}
         onClearLogs={handleClearLogs}
+        theme={theme}
+        onSetTheme={setTheme}
+        onToggleTheme={toggleTheme}
         hasLogs={!!parseResult && parseResult.entries.length > 0}
         formatDetected={parseResult?.formatDetected || 'Unknown'}
         totalLines={parseResult?.entries.length || 0}
@@ -190,36 +223,36 @@ export default function App() {
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
         {/* Processing Indicator */}
         {isProcessing && (
-          <div className="bg-cyan-950/40 border border-cyan-800/40 rounded-xl p-4 text-center text-xs text-cyan-300 flex items-center justify-center gap-2">
-            <span className="w-4 h-4 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin"></span>
+          <div className="bg-cyan-50 dark:bg-cyan-950/40 border border-cyan-200 dark:border-cyan-800/40 rounded-xl p-4 text-center text-xs text-cyan-800 dark:text-cyan-300 flex items-center justify-center gap-2 shadow-xs">
+            <span className="w-4 h-4 border-2 border-cyan-600 dark:border-cyan-400 border-t-transparent rounded-full animate-spin"></span>
             <span>Parsing server log telemetry & detecting 116+ AI crawler signatures...</span>
           </div>
         )}
 
         {/* If no logs loaded yet */}
         {!parseResult || parseResult.entries.length === 0 ? (
-          <div className="bg-slate-900/40 border border-slate-800 rounded-2xl p-12 text-center max-w-2xl mx-auto my-12">
-            <div className="w-16 h-16 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center mx-auto mb-4">
+          <div className="bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 rounded-2xl p-12 text-center max-w-2xl mx-auto my-12 shadow-sm dark:shadow-none">
+            <div className="w-16 h-16 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-600 dark:text-cyan-400 flex items-center justify-center mx-auto mb-4">
               <Bot className="w-8 h-8" />
             </div>
-            <h2 className="text-xl font-bold text-white mb-2">No Server Logs Loaded</h2>
-            <p className="text-xs text-slate-400 leading-relaxed mb-6">
+            <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-2">No Server Logs Loaded</h2>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
               Drop any server access log file, upload an export from Cloudflare Logpush, Nginx, Apache, or AWS CloudFront, or load a preset sample to view your site&apos;s GEO Score™ and 116+ AI bot crawl analysis.
             </p>
             <div className="flex items-center justify-center gap-3 flex-wrap">
               <button
                 type="button"
                 onClick={() => loadLogs(SAMPLE_CLOUDFLARE_LOGS, 'Cloudflare Logpush (JSON)')}
-                className="px-4 py-2 text-xs font-semibold bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg shadow-md transition-colors"
+                className="px-4 py-2 text-xs font-semibold bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg shadow-md transition-colors cursor-pointer"
               >
                 Load Cloudflare Sample
               </button>
               <button
                 type="button"
                 onClick={() => setIsPasteModalOpen(true)}
-                className="px-4 py-2 text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 rounded-lg transition-colors flex items-center gap-1.5"
+                className="px-4 py-2 text-xs font-semibold bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-300 dark:border-slate-700 rounded-lg transition-colors flex items-center gap-1.5 shadow-xs cursor-pointer"
               >
-                <Terminal className="w-3.5 h-3.5 text-cyan-400" />
+                <Terminal className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
                 <span>Paste Raw Logs</span>
               </button>
             </div>
@@ -239,7 +272,7 @@ export default function App() {
             <MetricCards summary={parseResult.summary} />
 
             {/* Navigation Tabs Bar */}
-            <div className="border-b border-slate-800 flex items-center justify-between gap-4 overflow-x-auto pb-px">
+            <div className="border-b border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4 overflow-x-auto pb-px">
               <div className="flex items-center gap-1 min-w-max">
                 {tabs.map((tab) => {
                   const Icon = tab.icon;
@@ -249,18 +282,18 @@ export default function App() {
                       key={tab.id}
                       type="button"
                       onClick={() => setActiveTab(tab.id)}
-                      className={`flex items-center gap-2 px-3.5 py-2.5 text-xs font-medium border-b-2 transition-all whitespace-nowrap ${
+                      className={`flex items-center gap-2 px-3.5 py-2.5 text-xs font-medium border-b-2 transition-all whitespace-nowrap cursor-pointer ${
                         isActive
-                          ? 'border-cyan-400 text-cyan-400 font-semibold'
-                          : 'border-transparent text-slate-400 hover:text-slate-200 hover:border-slate-700'
+                          ? 'border-cyan-600 text-cyan-600 dark:border-cyan-400 dark:text-cyan-400 font-semibold'
+                          : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:border-slate-300 dark:hover:border-slate-700'
                       }`}
                     >
-                      <Icon className={`w-3.5 h-3.5 ${tab.highlight ? 'text-cyan-400' : ''}`} />
+                      <Icon className={`w-3.5 h-3.5 ${tab.highlight ? 'text-cyan-600 dark:text-cyan-400' : ''}`} />
                       <span>{tab.label}</span>
                       {tab.count !== undefined && tab.count > 0 && (
                         <span
                           className={`text-[10px] px-1.5 py-0.2 rounded font-mono ${
-                            tab.badgeColor || 'bg-slate-800 text-slate-400'
+                            tab.badgeColor || 'bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-400'
                           }`}
                         >
                           {tab.count}
@@ -276,7 +309,7 @@ export default function App() {
                 <button
                   type="button"
                   onClick={handleExportJson}
-                  className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-300 hover:text-white bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-lg transition-colors"
+                  className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-300 dark:border-slate-800 rounded-lg transition-colors shadow-xs cursor-pointer"
                   title="Export full log analytics and score to JSON"
                 >
                   <Download className="w-3.5 h-3.5" />
@@ -328,19 +361,19 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-900 bg-slate-950 mt-12 py-6 text-xs text-slate-500">
+      <footer className="border-t border-slate-200 dark:border-slate-900 bg-white dark:bg-slate-950 mt-12 py-6 text-xs text-slate-500 dark:text-slate-400 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <span className="font-semibold text-slate-400">AI Log Analyzer</span>
+            <span className="font-bold text-slate-800 dark:text-slate-300">Teejay · AI Log Analyzer</span>
             <span>·</span>
             <span>Generative Engine Optimization (GEO) & Crawler Intelligence</span>
           </div>
-          <div className="text-[11px] text-slate-400 flex items-center gap-4">
+          <div className="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-4">
             <span>Detects 116+ AI Crawlers</span>
             <span>·</span>
-            <span>Zero Data Storage</span>
-            <span>·</span>
             <span>Client-Side Processing</span>
+            <span>·</span>
+            <span className="text-cyan-600 dark:text-cyan-400 font-semibold">Built with precision by Teejay</span>
           </div>
         </div>
       </footer>

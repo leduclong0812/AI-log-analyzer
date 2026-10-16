@@ -20,17 +20,17 @@ export const PasteModal: React.FC<PasteModalProps> = ({ isOpen, onClose, onParse
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-2xl overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4">
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-2xl overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 duration-200">
         {/* Modal Header */}
-        <div className="px-6 py-4 border-b border-slate-800 flex items-center justify-between">
+        <div className="px-6 py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50/80 dark:bg-slate-950/50">
           <div className="flex items-center gap-2">
-            <div className="p-1.5 rounded-lg bg-cyan-500/10 text-cyan-400">
+            <div className="p-1.5 rounded-lg bg-cyan-100 dark:bg-cyan-500/10 text-cyan-600 dark:text-cyan-400">
               <Terminal className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="text-sm font-bold text-white">Paste Raw Access Logs</h3>
-              <p className="text-[11px] text-slate-400">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white">Paste Raw Access Logs</h3>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400">
                 Supports Nginx, Apache, Cloudflare JSON, CSV, AWS CloudFront, and Caddy
               </p>
             </div>
@@ -38,7 +38,7 @@ export const PasteModal: React.FC<PasteModalProps> = ({ isOpen, onClose, onParse
 
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors"
+            className="p-1.5 text-slate-400 hover:text-slate-700 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
@@ -47,20 +47,20 @@ export const PasteModal: React.FC<PasteModalProps> = ({ isOpen, onClose, onParse
         {/* Modal Body */}
         <div className="p-6 space-y-4">
           <div className="flex items-center justify-between text-xs">
-            <span className="text-slate-400">Insert 10 to 5,000+ log lines below:</span>
+            <span className="text-slate-600 dark:text-slate-400">Insert 10 to 5,000+ log lines below:</span>
             <div className="flex items-center gap-2">
               <button
                 type="button"
                 onClick={() => setText(SAMPLE_CLOUDFLARE_LOGS)}
-                className="text-[11px] text-cyan-400 hover:underline"
+                className="text-[11px] text-cyan-600 dark:text-cyan-400 hover:underline font-medium"
               >
                 Insert Sample Cloudflare
               </button>
-              <span className="text-slate-600">·</span>
+              <span className="text-slate-400 dark:text-slate-600">·</span>
               <button
                 type="button"
                 onClick={() => setText(SAMPLE_NGINX_LOGS)}
-                className="text-[11px] text-cyan-400 hover:underline"
+                className="text-[11px] text-cyan-600 dark:text-cyan-400 hover:underline font-medium"
               >
                 Insert Sample Nginx
               </button>
@@ -73,7 +73,7 @@ export const PasteModal: React.FC<PasteModalProps> = ({ isOpen, onClose, onParse
             placeholder={`127.0.0.1 - - [15/Oct/2026:10:00:00 +0000] "GET /docs HTTP/1.1" 200 12400 "-" "PerplexityBot/1.0"
 {"ClientIP":"...","EdgeResponseStatus":200,"ClientRequestUserAgent":"GPTBot/1.2"}...`}
             rows={10}
-            className="w-full p-3 font-mono text-xs bg-slate-950 border border-slate-800 rounded-xl text-slate-200 placeholder-slate-600 focus:outline-none focus:border-cyan-500 transition-colors resize-y leading-relaxed"
+            className="w-full p-3 font-mono text-xs bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-xl text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-600 focus:outline-none focus:border-cyan-500 transition-colors resize-y leading-relaxed"
           />
 
           <div className="text-[11px] text-slate-500 flex items-center justify-between">
@@ -83,11 +83,11 @@ export const PasteModal: React.FC<PasteModalProps> = ({ isOpen, onClose, onParse
         </div>
 
         {/* Modal Footer */}
-        <div className="px-6 py-4 bg-slate-950/60 border-t border-slate-800 flex items-center justify-end gap-3">
+        <div className="px-6 py-4 bg-slate-50 dark:bg-slate-950/60 border-t border-slate-200 dark:border-slate-800 flex items-center justify-end gap-3">
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 text-xs font-medium text-slate-400 hover:text-white transition-colors"
+            className="px-4 py-2 text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
           >
             Cancel
           </button>
