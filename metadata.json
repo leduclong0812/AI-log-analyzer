@@ -1,0 +1,6 @@
+{
+  "name": "AI Log Analyzer - GEO & AISEO Crawler Intelligence",
+  "description": "Analyze server access logs to detect 116+ AI bots, measure GEO Score™, identify crawl gaps, and optimize your website for AI search visibility.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
